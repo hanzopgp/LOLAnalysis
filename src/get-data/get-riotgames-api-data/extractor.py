@@ -82,7 +82,6 @@ class MatchDataExtractor:
         }
 
 
-
 # extractor = UserDataExtractor() 
 # d_puuid = extractor.get_user_info("eK-5G4INu5yvmAbQmxHkS3gSdan6EUCzfZ9dS0EbJCmlawM")
 # puuid = d_puuid["puuid"]
