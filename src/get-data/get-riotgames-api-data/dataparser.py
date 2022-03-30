@@ -87,23 +87,3 @@ class PlayerParser(CsvWritterMixin, BaseCsvWritter):
 
 
 
-class MatchParser(CsvWritterMixin, BaseCsvWritter): 
-    def __init__(self, filename):
-        super(MatchParser, self).__init__(filename)
-
-
-    def preprocess_content(self, match_content):
-        """
-            extract relevant match data 
-        """
-        data = {}
-        meta = match_content["metadata"]
-        info = match_content["info"]
-        data["matchId"] = meta["matchId"]  
-        data["game_id"] = info["gameId"]
-        data["season"] = info["gameVersion"]
-        data["gameDuration"] = info["gameDuration"]
-        data["gameMode"] = info["gameMode"]
-        data["gameCreation"] = info["gameCreation"] 
-
-        return data        

@@ -8,7 +8,6 @@ def main():
     user_extract = UserDataExtractor()
     match_extractor = MatchDataExtractor() 
     player_parser = PlayerParser(filename=PLAYER_CSV_PATH)
-    match_parser = MatchParser(filename=MATCH_CSV_PATH)
 
     # d_puuid = user_extract.get_user_info("eK-5G4INu5yvmAbQmxHkS3gSdan6EUCzfZ9dS0EbJCmlawM")
     # puuid = d_puuid["puuid"]
