@@ -40,7 +40,7 @@ def scrape_all_pages():
 	driver = init_driver() # Init our driver
 	pagination = driver.find_element(By.CLASS_NAME, "pagination") # Gets the first occurence of .pagination
 	last_page = int(pagination.text[-7:-4]) # Gets the last pages (the one before "next")
-	last_page = 2 # For debug purpose
+	# last_page = 2 # For debug purpose
 	all_pages_players_url.append(scrape_one_page(driver)) # Scrapes first page
 	for page_number in tqdm(range(2, last_page+1)):
 		# print("SCRAPING PAGE NUMBER :", page_number)
@@ -105,7 +105,7 @@ def scrape_one_player_infos(player_driver):
 def scrape_players_infos(all_players_pages):
 	print("SCRAPING EACH PLAYER INFOS ON THEIR PERSONAL PAGES ...")
 	all_data = []
-	for player_url in tqdm(all_players_pages[:3]):
+	for player_url in tqdm(all_players_pages):
 		player_driver = init_driver(player_url)
 		all_data.append(scrape_one_player_infos(player_driver))
 		player_driver.close()
