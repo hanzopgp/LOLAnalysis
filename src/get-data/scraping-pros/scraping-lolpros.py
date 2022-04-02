@@ -68,24 +68,24 @@ def scrape_one_player_infos(player_driver):
 		return []
 	player_infos.append(name)
 	trs = player_driver.find_elements(By.XPATH, "//tbody//tr")
+	country = "MISSING"
+	age = "MISSING"
 	for tr in trs: 
 		tds = tr.find_elements(By.XPATH, "td") 
-		country = ""
-		age = ""
 		for i, td in enumerate(tds):
 			if td.text == "Birthplace":
 				country = tds[i+1].text
 			elif td.text == "Birthday":
 				age_string = tds[i+1].text
 				age = int(age_string[age_string.find('(')+1:age_string.find(')')])
-		player_infos.append(country)
-		player_infos.append(age)
+	player_infos.append(country)
+	player_infos.append(age)
 			
 	return player_infos
 
 def scrape_players_infos(all_players_pages):
 	all_data = []
-	for player_url in tqdm(all_players_pages[:10]):
+	for player_url in tqdm(all_players_pages[:3]):
 		player_driver = get_driver_one_player(player_url)
 		all_data.append(scrape_one_player_infos(player_driver))
 		player_driver.close()
