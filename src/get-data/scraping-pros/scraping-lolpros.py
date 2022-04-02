@@ -29,8 +29,8 @@ def scrape_all_pages(driver):
 	all_pages_players_url = []
 	pagination = driver.find_element(By.CLASS_NAME, "pagination") # Gets the first occurence of .pagination
 	last_page = int(pagination.text[-7:-4]) # Gets the last pages (the one before "next")
-	last_page = 3 # For debug purpose
-	# scrape_one_page(driver) # Scrapes first page
+	last_page = 2 # For debug purpose
+	all_pages_players_url.append(scrape_one_page(driver)) # Scrapes first page
 	for page_number in tqdm(range(2, last_page+1)):
 		# print("SCRAPING PAGE NUMBER :", page_number)
 		pagination = driver.find_element(By.CLASS_NAME, "pagination") # Refresh our pagination class
@@ -52,13 +52,49 @@ def scrape_all_pages(driver):
 	driver.close() # Close the page since now we are going to go through all the player pages to get their informations
 	return np.array(all_pages_players_url).flatten() # Flatten because we don't care about the pages number
 
-def scrape_player_infos(driver, all_players_pages):
-	pass
+def get_driver_one_player(player_url):
+	options = webdriver.ChromeOptions()
+	options.add_experimental_option('excludeSwitches', ['enable-logging'])
+	player_driver = webdriver.Chrome(options=options)
+	player_driver.get(player_url)
+	time.sleep(1)
+	return player_driver
+
+def scrape_one_player_infos(player_driver):
+	player_infos = []
+	url_str = str(player_driver.current_url)
+	name = url_str.split("/")[-2]
+	if name == "player": # Sometimes there is a player in table but url doesn't work
+		return []
+	player_infos.append(name)
+	trs = player_driver.find_elements(By.XPATH, "//tbody//tr")
+	for tr in trs: 
+		tds = tr.find_elements(By.XPATH, "td") 
+		country = ""
+		age = ""
+		for i, td in enumerate(tds):
+			if td.text == "Birthplace":
+				country = tds[i+1].text
+			elif td.text == "Birthday":
+				age_string = tds[i+1].text
+				age = int(age_string[age_string.find('(')+1:age_string.find(')')])
+		player_infos.append(country)
+		player_infos.append(age)
+			
+	return player_infos
+
+def scrape_players_infos(all_players_pages):
+	all_data = []
+	for player_url in tqdm(all_players_pages[:10]):
+		player_driver = get_driver_one_player(player_url)
+		all_data.append(scrape_one_player_infos(player_driver))
+		player_driver.close()
+	return np.array(all_data)
 
 driver = init() # Init our driver
 all_players_pages = scrape_all_pages(driver) # Scrapes all the url pages of the pro players
-all_data = scrape_player_infos(driver, all_players_pages) # Gets all the data per pro player
-print(all_players_pages.shape)
+all_data = scrape_players_infos(all_players_pages) # Gets all the data per pro player
+print(all_data)
 
 
 
