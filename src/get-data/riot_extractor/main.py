@@ -1,10 +1,14 @@
 from extractor import UserDataExtractor, MatchDataExtractor
 from dataparser import PlayerParser, MatchParser  
 from config import *
+import pandas as pd
+
 
 
 def main():
-
+    
+    pro_df = pd.read_csv(PRO_CSV_PATH)
+    pro_df.head()
     user_extract = UserDataExtractor()
     match_extractor = MatchDataExtractor() 
     player_parser = PlayerParser(filename=PLAYER_CSV_PATH)
