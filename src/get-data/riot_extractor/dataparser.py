@@ -46,11 +46,10 @@ class BaseCsvWritter:
         
 
 
-
-class PlayerParser(CsvWritterMixin, BaseCsvWritter): 
+class GameParser(CsvWritterMixin, BaseCsvWritter): 
      
     def __init__(self, filename):
-        super(PlayerParser, self).__init__(filename)
+        super(GameParser, self).__init__(filename)
 
     def preprocess_content(self, match_content, user_puuid):
         """
@@ -68,22 +67,21 @@ class PlayerParser(CsvWritterMixin, BaseCsvWritter):
         
         # collect info
         for k,v in info.items(): 
-            if k != "participants": 
+            if k != "participants" and k != "teams": 
                 data[k] = v
-
         participants = info["participants"]
         # collect player
         for participant in participants: 
             if participant["puuid"] == user_puuid: 
                 # extract 
                 for key in participant: 
+                    # extract all challenges
                     if key == "challenges":
                         for k,v in participant["challenges"].items(): 
                             data[k] = v
-                    if key != "perks":
+                    elif key != "perks":
                         data[key] = participant[key]
                 return data
         return None
-
 
 
