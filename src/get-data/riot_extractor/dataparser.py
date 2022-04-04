@@ -29,7 +29,7 @@ class BaseCsvWritter:
             add a column of the preprocessed row into filename 
             note : row is a list
         """
-        with open(self.filename, 'a+', newline='') as csvfile:
+        with open(self.filename, 'a+', newline='', encoding="utf-8") as csvfile:
             current_file = csv.writer(csvfile, delimiter=",") 
             current_file.writerow(row)
 
@@ -64,7 +64,9 @@ class GameParser(CsvWritterMixin, BaseCsvWritter):
 
         data = {}
         info = match_content["info"]
-        
+        if info["gameVersion"][:2] == "11.": 
+            return None
+
         # collect info
         for k,v in info.items(): 
             if k != "participants" and k != "teams": 
@@ -76,10 +78,10 @@ class GameParser(CsvWritterMixin, BaseCsvWritter):
                 # extract 
                 for key in participant: 
                     # extract all challenges
-                    if key == "challenges":
-                        for k,v in participant["challenges"].items(): 
-                            data[k] = v
-                    elif key != "perks":
+                    # if key == "challenges":
+                    #     for k,v in participant["challenges"].items(): 
+                    #         data[k] = v
+                    if key != "perks" and key !="challenges":
                         data[key] = participant[key]
                 return data
         return None

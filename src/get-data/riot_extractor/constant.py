@@ -27,7 +27,7 @@ RIOT_SERVER = {
     "kr1" : (RIOT_URL_KR, ASIA), 
     "la1" : (RIOT_URL_LA1, AMERICAS), 
     "la2" : (RIOT_URL_LA2, AMERICAS), 
-    "na1" : (RIOT_URL_NA1, AMERICAS), 
+    "us1" : (RIOT_URL_NA1, AMERICAS),  # to avoid nan
     "oc1" : (RIOT_URL_OC1, ASIA), 
     "ru1" : (RIOT_URL_RU, EUROPE), 
     "tr1" : (RIOT_URL_TR1, EUROPE)
@@ -44,7 +44,7 @@ MATCH_DETAIL_ENDPOINTS = "/lol/match/v5/matches/" #{matchId}
 # MACH_DETAIL_TIMELINE : a game's timeline info 
 MATCH_DETAIL_TIMELINE = "/lol/match/v5/matches/" #{matchId}/timelineGet
 
-API_TOKEN = "RGAPI-f16effde-8766-49b5-80ae-6702fed86d7a"
+API_TOKEN = "RGAPI-2d829967-7840-4f77-a362-9794958c093c"
 
 HEADERS = {
     "X-Riot-Token" : API_TOKEN

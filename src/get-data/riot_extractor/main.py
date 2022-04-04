@@ -2,6 +2,7 @@ from extractor import UserDataExtractor, MatchDataExtractor
 from dataparser import GameParser
 from config import *
 import pandas as pd
+import numpy as np
 
 
 
@@ -27,30 +28,37 @@ def extract_and_parse_match(
         print()
 
     try: 
+        print(f"---- retrieving matches for user : {summoner_name} ----")
         summoner_matches_payload = user_extractor.get_matches(puuid, server)
         matches = summoner_matches_payload
+        print("---- Succesffuly retrieved matches ----", "\n")
 
     except Exception as e: 
         print(f"Could not retrieve matches with puuid : {puuid}")
         print("Following exception has been raised : ")
-        print(e)
+        # raise ValueError(e)
     
     for match_id in matches: 
         
         try: 
+            print(f"---- retrieving match content for user : {summoner_name} ----")
             content_payload = match_extractor.retrieve_match_content(match_id, server)
             match_content = content_payload
             d_content = game_parser.preprocess_content(match_content, puuid)
+            print("---- Succesffuly retrieved match content ----", "\n")
             # print(d_content.values())
             # write to csv
-            if write_columns: 
-                game_parser.write_into(d_content.keys())
-            game_parser.write_into(d_content.values())
+            if d_content: 
+                if write_columns: 
+                    game_parser.write_into(d_content.keys())
+                game_parser.write_into(d_content.values())
+
+            write_columns = False
 
         except Exception as e: 
             print(f"Could not retrieve matche with id : {match_id}")
             print("Following exception has been raised : ")
-            print(e)
+            # raise ValueError(e)
     
 
 
@@ -70,22 +78,20 @@ def main():
     
     players = pro_df["name"].tolist()
     summoners = pro_df["summoner_names"].tolist()
-    servers = pro_df["server"].tolist()
+    servers = pro_df["server"].tolist()    
 
+    write_columns = True
     
     for i, player in enumerate(players):
 
         summs = eval(summoners[i])
+        
         server = servers[i]
-
+        print("FETCHING FOR SERVER : ", server)
         for j, summoner_name in enumerate(summs): 
             
             # add columns for the first summoner name 
-            if i == 0 and j == 0: 
-                write_columns = True 
-            else: 
-                write_columns = False
-
+            print("WRITE COLUMNS : ", write_columns)
             extract_and_parse_match(
                 summoner_name, 
                     server, 
@@ -94,6 +100,7 @@ def main():
                     game_parser,
                     write_columns=write_columns
             )
+            write_columns = False
 
 
 

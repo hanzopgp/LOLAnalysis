@@ -64,7 +64,7 @@ class UserDataExtractor:
             Returns a list of game'id and the endpoint in order to be consumed
         """
         _, region = get_server(region)
-        endpoint = region + MATCH_ENDPOINT + f"{puuid}/ids?type=ranked&start=0&count=25"
+        endpoint = region + MATCH_ENDPOINT + f"{puuid}/ids?type=ranked&start=0&count=100"
         r = requests.get(endpoint, headers=HEADERS)
         return {
             "response" : r, 
