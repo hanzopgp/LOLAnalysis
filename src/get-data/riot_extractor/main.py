@@ -26,6 +26,7 @@ def extract_and_parse_match(
         print("Following exception has been raised : ")
         print(e)
         print()
+        return
 
     try: 
         print(f"---- retrieving matches for user : {summoner_name} ----")
@@ -37,6 +38,8 @@ def extract_and_parse_match(
         print(f"Could not retrieve matches with puuid : {puuid}")
         print("Following exception has been raised : ")
         # raise ValueError(e)
+        print()
+        return 
     
     for match_id in matches: 
         
@@ -82,7 +85,7 @@ def main():
 
     write_columns = True
     
-    for i, player in enumerate(players):
+    for i, player in enumerate(players, 27):
 
         summs = eval(summoners[i])
         
@@ -91,7 +94,6 @@ def main():
         for j, summoner_name in enumerate(summs): 
             
             # add columns for the first summoner name 
-            print("WRITE COLUMNS : ", write_columns)
             extract_and_parse_match(
                 summoner_name, 
                     server, 

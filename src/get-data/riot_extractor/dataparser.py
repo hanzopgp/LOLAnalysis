@@ -64,7 +64,7 @@ class GameParser(CsvWritterMixin, BaseCsvWritter):
 
         data = {}
         info = match_content["info"]
-        if info["gameVersion"][:2] == "11.": 
+        if info["gameVersion"][:2] != "12": 
             return None
 
         # collect info

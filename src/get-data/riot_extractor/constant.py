@@ -27,11 +27,12 @@ RIOT_SERVER = {
     "kr1" : (RIOT_URL_KR, ASIA), 
     "la1" : (RIOT_URL_LA1, AMERICAS), 
     "la2" : (RIOT_URL_LA2, AMERICAS), 
-    "us1" : (RIOT_URL_NA1, AMERICAS),  # to avoid nan
-    "oc1" : (RIOT_URL_OC1, ASIA), 
+    "us1" : (RIOT_URL_NA1, AMERICAS),  # to avoid nan we use US
+    "oc1" : (RIOT_URL_OC1, AMERICAS), 
     "ru1" : (RIOT_URL_RU, EUROPE), 
     "tr1" : (RIOT_URL_TR1, EUROPE)
 }
+
 
 
 # PUUID_ENDPOINT : information regarding the user's account
