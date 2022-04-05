@@ -85,7 +85,7 @@ def main():
 
     write_columns = True
     
-    for i, player in enumerate(players):
+    for i, player in enumerate(players, 254):
 
         summs = eval(summoners[i])
         
