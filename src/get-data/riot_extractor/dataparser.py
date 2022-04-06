@@ -29,12 +29,11 @@ class BaseCsvWritter:
             add a column of the preprocessed row into filename 
             note : row is a list
         """
+
         with open(self.filename, 'a+', newline='', encoding="utf-8") as csvfile:
             current_file = csv.writer(csvfile, delimiter=",") 
             current_file.writerow(row)
-
-        print("successfully wrote to ", self.filename)
-
+            print("successfully wrote to ", self.filename)
         
 
     def flatten_and_write(self, row): 
@@ -64,7 +63,9 @@ class GameParser(CsvWritterMixin, BaseCsvWritter):
 
         data = {}
         info = match_content["info"]
+        print(info)
         if info["gameVersion"][:2] != "12": 
+            print("WARNING : game version is ", info["gameVersion"])
             return None
 
         # collect info
