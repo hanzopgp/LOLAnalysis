@@ -63,7 +63,6 @@ class GameParser(CsvWritterMixin, BaseCsvWritter):
 
         data = {}
         info = match_content["info"]
-        print(info)
         if info["gameVersion"][:2] != "12": 
             print("WARNING : game version is ", info["gameVersion"])
             return None

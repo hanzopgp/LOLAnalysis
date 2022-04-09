@@ -56,10 +56,7 @@ def extract_and_parse_match(
                 if write_columns: 
                     game_parser.write_into(d_content.keys())
                 else: 
-                    game_parser.write_into(d_content.values())
-            else: 
-                print("This game content is unkown")
-                print(d_content)
+                    game_parser.write_into(d_content.values())    
             write_columns = False
 
         except Exception as e: 
@@ -89,7 +86,7 @@ def main():
 
     write_columns = True
     
-    for i, player in enumerate(players, 615):
+    for i, player in enumerate(players, 791):
 
         summs = eval(summoners[i])
         
