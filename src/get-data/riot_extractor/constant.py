@@ -45,7 +45,7 @@ MATCH_DETAIL_ENDPOINTS = "/lol/match/v5/matches/" #{matchId}
 # MACH_DETAIL_TIMELINE : a game's timeline info 
 MATCH_DETAIL_TIMELINE = "/lol/match/v5/matches/" #{matchId}/timelineGet
 
-API_TOKEN = "RGAPI-0bf0988c-6230-4cb8-a461-54367234534f"
+API_TOKEN = "RGAPI-2fc4a88a-175a-4c59-9d8a-17f58c56ddf3"
 
 HEADERS = {
     "X-Riot-Token" : API_TOKEN

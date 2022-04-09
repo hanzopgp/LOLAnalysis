@@ -45,17 +45,18 @@ def extract_and_parse_match(
         
         try: 
             print(f"---- retrieving match content for user : {summoner_name} ----")
+            print(match_id)
             content_payload = match_extractor.retrieve_match_content(match_id, server)
             match_content = content_payload
             d_content = game_parser.preprocess_content(match_content, puuid)
             print("---- Succesffuly retrieved match content ----", "\n")
             # print(d_content.values())
             # write to csv
-            if d_content: 
+            if d_content is not None: 
                 if write_columns: 
                     game_parser.write_into(d_content.keys())
-                game_parser.write_into(d_content.values())
-
+                else: 
+                    game_parser.write_into(d_content.values())    
             write_columns = False
 
         except Exception as e: 
@@ -85,7 +86,7 @@ def main():
 
     write_columns = True
     
-    for i, player in enumerate(players, 254):
+    for i, player in enumerate(players, 791):
 
         summs = eval(summoners[i])
         
