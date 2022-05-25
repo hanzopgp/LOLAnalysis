@@ -1,0 +1,41 @@
+Introduction:
+
+
+==================================================================================================================
+
+Source de données:
+
+3 sources de données :
+
+- les joueurs pro avec info (scraping trackingthepros.com)
+- les parties de chacun des joueurs (API riot gamges)
+- les infos sur les pays (world database)
+> screen pipeline
+
+partie scraping :
+
+- screen site tracking the pros
+> on voulait recuperer des données par pays mais riot ne les fournit pas car separé par serveur
+> on a donc decider de recuperer directement ces infos sur des sites annexes
+> ils ont jamais répondu donc on a scraper les informations grace a request et selenium python
+
+- screen csv infos sur les pros
+> on a tt mit dans un csv et on a mtn les infos sur les pros + pays
+> mainteannt on a besoin des infos des parties
+
+partie game :
+
+- screen riot games + screen API
+> riot games est la société derriere league of legends
+> elle fournit une API mais il leur faut un ID
+
+- screen csv parties
+> on a maintenant enormement de features et d'informations qu'il va falloir stocker dans des data warehouse pour pouvoir effectuer de nouvelles analyses etc (ca sera la partie de stockage)
+
+partie world :
+
+- screen site
+> worlds est une base de donneés contenant beaucoup d'infos au niveau des pays
+
+- screen data recuperer
+> on a recuperer les données de ......
